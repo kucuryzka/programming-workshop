@@ -2,12 +2,14 @@ clear:
 	rm -rf *.o *.a test1
 
 
-check_fmt:
-	clang-format -style=LLVM -i 'find -regex ".+\.[ch]"' --dry-run --Werror
+checkfmt:
+	clang-format --style=LLVM -i *.c --dry-run --Werror
+	clang-format --style=LLVM -i *.h --dry-run --Werror
 
 
 fmt:
-	clang-format -style=LLVM -i 'find -regex ".+\.[ch]"'
+	clang-format --style=LLVM -i *.c
+	clang-format --style=LLVM -i *.h
 
 
 functions.o: functions.h functions.c
@@ -23,7 +25,7 @@ test.o: test.c
 
 
 test: test.o functions.a
-	gcc -g -static -o test1 test.o functions.a
+	gcc -g -static -o test1 test.o functions.a -lm
 
 
 try: test
