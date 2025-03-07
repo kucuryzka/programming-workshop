@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Checkstyle
-        run: make check_fmt
+        run: make checkfmt
 
       - name: Test
         run: make try
