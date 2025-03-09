@@ -8,6 +8,10 @@ checkfmt:
 
 fmt:
 	clang-format -style=LLVM -i `find -regex ".+\.[ch]"`
+<<<<<<< HEAD
+=======
+
+>>>>>>> d4e444fe3f67aa8488fdeb3371ef7a30a05bcd13
 
 functions.o: functions.h functions.c
 	gcc -g -c functions.c -o functions.o
