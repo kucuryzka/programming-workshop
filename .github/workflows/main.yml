@@ -16,3 +16,6 @@ jobs:
  
       - name: Test
         run: make test
+
+      - name: Try
+        run: make try
