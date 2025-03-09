@@ -103,5 +103,3 @@ void print_list(linked_list *list) {
   }
   printf("\n");
 }
-    printf("\n");
-}
