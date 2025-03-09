@@ -8,7 +8,6 @@ void init_stack(stack *stakk) {
   stakk->top = -1;
   stakk->capacity = 1;
 }
-
 // Функция для проверки стека на пустоту
 int is_empty(stack *stakk) { return stakk->top == -1; }
 
