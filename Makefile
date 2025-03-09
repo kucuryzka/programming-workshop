@@ -2,7 +2,7 @@ clear:
 	rm -rf *.o *.a test1
 
 
-checkfmt:
+check_fmt:
 	clang-format -style=LLVM -i `find -regex ".+\.[ch]"` --dry-run --Werror
 
 
