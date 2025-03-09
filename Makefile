@@ -23,7 +23,7 @@ test.o: test.c
 
 
 test: test.o functions.a
-	gcc -g -static -o test1 test.o functions.a
+	gcc -g -static -o test1 test.o functions.a -lm
 
 
 try: test

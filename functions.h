@@ -1,14 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
-// структура для хранения корней с самими корнями и их количеством
-typedef struct {
-    double* roots;
-    int count;
-} Roots;
-
-// функция для нахождения корней квадратного уравнения
-Roots find_roots(double a, double b, double c);
-
-// функция для освобождения памяти
-void free_roots(Roots roots);
+double* finding_roots_quadratic_equation(double a, double b, double c, double eps);

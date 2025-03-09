@@ -1,80 +1,73 @@
 #include "functions.h"
+#include <assert.h>
 
-// фнукция вывода целочисленных корней
-void print_integer_roots(Roots roots) {
-  if (roots.count < 0) {
-    printf("Error!\n");
-  } else {
-    printf("[");
-    for (int i = 0; i < roots.count; i++) {
-      if (roots.roots[i] == -0) {
-        roots.roots[i] = 0;
-      }
-        printf("%g", roots.roots[i]); // вывод корней
-    if (i < roots.count - 1) { // не последний элемент
-      printf(", ");
-      }
-    }
-    printf("]\n");
-  }
+void test_linear_equation() {
+  double* result = finding_roots_quadratic_equation(0, 0, 0, 1e-9);
+  assert(result == NULL);
+  free(result);
 }
 
-// фнукция вывода вещественных корней
-void print_real_roots(Roots roots, int decimal_point) {
-  if (roots.count < 0) {
-    printf("Error!\n");
-  } else {
-    printf("[");
-    for (int i = 0; i < roots.count; i++) {
-        printf("%.*f", decimal_point, roots.roots[i]); // вывод корней с * знаками после запятой
-    if (i < roots.count - 1) { // не последний элемент
-      printf(", ");
-      }
-    }
-    printf("]\n");
-  }
+void test_x_squared_minus_one() {
+  double* result = finding_roots_quadratic_equation(1, 0, -1, 1e-12);
+  double answer[2] = {-1.0, 1.0};
+  assert(fabs(result[0] - answer[0]) < 1e-12 && fabs(result[1] - answer[1]) < 1e-12);
+  free(result);
+}
+
+void test_x_squared() {
+  double* result = finding_roots_quadratic_equation(1, 0, 0, 1e-9);
+  double answer[1] = {0};
+  assert(fabs(result[0] - answer[0]) < 1e-9);
+  free(result);
+}
+
+void test_x_squared_plus_one() {
+  double* result = finding_roots_quadratic_equation(1, 0, 1, 1e-9);
+  assert(result == NULL);
+  free(result);
+}
+
+void test_x_squared_minus_one_ten_millionth() {
+  double* result = finding_roots_quadratic_equation(1, 0, -1e-7, 1e-9);
+  double answer[2] = {-sqrt(1e-7), sqrt(1e-7)};
+  assert(fabs(result[0] - answer[0]) < 1E-4 && fabs(result[1] - answer[1]) < 1E-4);
+  free(result);
+}
+
+void test_x_squared_minus_ten_billion_x_minus_one() {
+  double* result = finding_roots_quadratic_equation(1, -1e+10, -1, 1e-11);
+  double answer[2] = {-1e-10, 1e+10};
+  assert(fabs(result[0] - answer[0]) < 1e-11 && fabs(result[1] - answer[1]) < 1e-11);
+  free(result);
+}
+
+void test_x_squared_minus_one_hundred_millionth() {
+  double* result = finding_roots_quadratic_equation(1, 0, -1e-8, 1e-7);
+  double answer[1] = {0};
+  assert(fabs(result[0] - answer[0]) < 1e-7);
+  free(result);
 }
 
 int main() {
-  // Тест 1: a = 0
-  printf("Test 1 (a = 0): ");
-  Roots test1 = find_roots(0, 1, 1);
-  print_integer_roots(test1);
-  free_roots(test1);
+  // // Тест 1: a = 0
+  test_linear_equation();
 
-  // Тест 2: a = 1, b = 0, c = -1
-  printf("Test 2 (a = 1, b = 0, c = -1): ");
-  Roots test2 = find_roots(1, 0, -1);
-  print_integer_roots(test2);
-  free_roots(test2);
 
-  // Тест 3: a = 1, b = 0, c = 0
-  printf("Test 3 (a = 1, b = 0, c = 0): ");
-  Roots test3 = find_roots(1, 0, 0);
-  print_integer_roots(test3);
-  free_roots(test3);
+  // // Тест 2: a = 1, b = 0, c = -1
+  test_x_squared_minus_one();
 
-  // Тест 4: a = 1, b = 0, c = 1
-  printf("Test 4 (a = 1, b = 0, c = 1): ");
-  Roots test4 = find_roots(1, 0, 1);
-  print_integer_roots(test4);
-  free_roots(test4);
+  // // Тест 3: a = 1, b = 0, c = 0
+  test_x_squared();
+
+  // // Тест 4: a = 1, b = 0, c = 1
+  test_x_squared_plus_one();
 
   // Тест 5: a = 1, b = 0, c = -1E-7
-  printf("Test 5 (a = 1, b = 0, c = -1E-7): ");
-  Roots test5 = find_roots(1, 0, -1E-7);
-  print_real_roots(test5, 4);
-  free_roots(test5);
+  test_x_squared_minus_one_ten_millionth();
 
-  // Тест 6: a = 1, b = -1E+10, c = -1
-  printf("Test 6 (a = 1, b = -1E+10, c = -1): ");
-  Roots test6 = find_roots(1, -1E+10, -1);
-  print_real_roots(test6, 11);
-  free_roots(test6);
+  // // Тест 6: a = 1, b = -1E+10, c = -1
+  test_x_squared_minus_ten_billion_x_minus_one();
 
-  // Тест 7: a = 1, b = 0, c = -1E-8
-  printf("Test 7 (a = 1, b = 0, c = -1E-8): ");
-  Roots test7 = find_roots(1, 0, -1E-8);
-  print_real_roots(test7, 7);
-  free_roots(test7);
+  // // Тест 7: a = 1, b = 0, c = -1E-8
+  test_x_squared_minus_one_hundred_millionth();
 }
