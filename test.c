@@ -2,47 +2,50 @@
 #include <assert.h>
 
 void test_linear_equation() {
-  double* result = finding_roots_quadratic_equation(0, 0, 0, 1e-9);
+  double *result = finding_roots_quadratic_equation(0, 0, 0, 1e-9);
   assert(result == NULL);
   free(result);
 }
 
 void test_x_squared_minus_one() {
-  double* result = finding_roots_quadratic_equation(1, 0, -1, 1e-12);
+  double *result = finding_roots_quadratic_equation(1, 0, -1, 1e-12);
   double answer[2] = {-1.0, 1.0};
-  assert(fabs(result[0] - answer[0]) < 1e-12 && fabs(result[1] - answer[1]) < 1e-12);
+  assert(fabs(result[0] - answer[0]) < 1e-12 &&
+         fabs(result[1] - answer[1]) < 1e-12);
   free(result);
 }
 
 void test_x_squared() {
-  double* result = finding_roots_quadratic_equation(1, 0, 0, 1e-9);
+  double *result = finding_roots_quadratic_equation(1, 0, 0, 1e-9);
   double answer[1] = {0};
   assert(fabs(result[0] - answer[0]) < 1e-9);
   free(result);
 }
 
 void test_x_squared_plus_one() {
-  double* result = finding_roots_quadratic_equation(1, 0, 1, 1e-9);
+  double *result = finding_roots_quadratic_equation(1, 0, 1, 1e-9);
   assert(result == NULL);
   free(result);
 }
 
 void test_x_squared_minus_one_ten_millionth() {
-  double* result = finding_roots_quadratic_equation(1, 0, -1e-7, 1e-9);
+  double *result = finding_roots_quadratic_equation(1, 0, -1e-7, 1e-9);
   double answer[2] = {-sqrt(1e-7), sqrt(1e-7)};
-  assert(fabs(result[0] - answer[0]) < 1E-4 && fabs(result[1] - answer[1]) < 1E-4);
+  assert(fabs(result[0] - answer[0]) < 1E-4 &&
+         fabs(result[1] - answer[1]) < 1E-4);
   free(result);
 }
 
 void test_x_squared_minus_ten_billion_x_minus_one() {
-  double* result = finding_roots_quadratic_equation(1, -1e+10, -1, 0);
+  double *result = finding_roots_quadratic_equation(1, -1e+10, -1, 0);
   double answer[2] = {-1e-10, 1e+10};
-  assert(fabs(result[0] - answer[0]) < 1e-11 && fabs(result[1] - answer[1]) < 1e-11);
+  assert(fabs(result[0] - answer[0]) < 1e-11 &&
+         fabs(result[1] - answer[1]) < 1e-11);
   free(result);
 }
 
 void test_x_squared_minus_one_hundred_millionth() {
-  double* result = finding_roots_quadratic_equation(1, 0, -1e-8, 1e-7);
+  double *result = finding_roots_quadratic_equation(1, 0, -1e-8, 1e-7);
   double answer[1] = {0};
   assert(fabs(result[0] - answer[0]) < 1e-7);
   free(result);
