@@ -1,7 +1,6 @@
+#include "functions.h"
 #include <math.h>
 #include <stdio.h>
-#include "functions.h"
-
 
 double func1(int a, int b, double (*func)(double), double h) {
   double step = (b - a) / h;

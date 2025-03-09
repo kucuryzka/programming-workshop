@@ -8,7 +8,6 @@ int main(void) {
   scanf("%i", &a);
   scanf("%i", &b);
 
-
   printf("definite integral equals for interval from %i to %i:\n", a, b);
   printf("for log: %f\n", func1(a, b, func, 100));
 
