@@ -14,6 +14,13 @@ double *finding_roots_quadratic_equation(double a, double b, double c,
     roots = malloc(2 * sizeof(double));
     roots[1] = (-b + sqrt(d)) / (2 * a);
     roots[0] = c / (a * roots[1]);
+
+    if (roots[1] < roots[0]) {
+      double temp = roots[1];
+      roots[1] = roots[0];
+      roots[0] = temp;
+    }
+
   } else if (d < -eps) { // Дискриминант меньше нуля
     return roots;
   } else { // Дискриминант равен нулю
