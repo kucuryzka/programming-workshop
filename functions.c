@@ -93,13 +93,3 @@ int find_element(linked_list *list, int position) {
 
 // Функция для подсчёта количества элементов
 int count_elements(linked_list *list) { return list->size; }
-
-// Функция для вывода списка
-void print_list(linked_list *list) {
-  node *current = list->head;
-  while (current != NULL) {
-    printf("%d ", current->data);
-    current = current->next;
-  }
-  printf("\n");
-}
