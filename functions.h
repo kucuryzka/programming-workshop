@@ -16,4 +16,3 @@ void add_to_middle(linked_list *list, int position, int value);
 void remove_element(linked_list *list, int position);
 int find_element(linked_list *list, int position);
 int count_elements(linked_list *list);
-void print_list(linked_list *list);
