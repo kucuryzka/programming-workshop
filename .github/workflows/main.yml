@@ -13,9 +13,6 @@ jobs:
 
       - name: Checkstyle
         run: make check_fmt
- 
+
       - name: Test
         run: make test
-        
-      - name: Try
-        run: make try
