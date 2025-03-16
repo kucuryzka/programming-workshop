@@ -1,4 +1,4 @@
-#include "functions.h"
+#include "quadratic_equation.h"
 #include <assert.h>
 
 void test_linear_equation() {
@@ -72,6 +72,4 @@ int main() {
 
   // Тест 7: a = 1, b = 0, c = -1E-8
   test_x_squared_minus_one_hundred_millionth();
-
-  return 0;
 }
