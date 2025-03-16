@@ -1,4 +1,4 @@
-#include "functions.h"
+#include "f_stack.h"
 #include <assert.h>
 
 void test_is_empty() {
