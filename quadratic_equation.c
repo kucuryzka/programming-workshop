@@ -1,4 +1,4 @@
-#include "functions.h"
+#include "quadratic_equation.h"
 
 double *finding_roots_quadratic_equation(double a, double b, double c,
                                          double eps) {
