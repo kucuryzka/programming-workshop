@@ -1,5 +1,5 @@
 clear:
-	rm -rf *.o *.a test1
+	rm -rf *.o *.a *_test
 
 
 check_fmt:
@@ -10,21 +10,21 @@ fmt:
 	clang-format -style=LLVM -i `find -regex ".+\.[ch]"`
 
 
-functions.o: functions.h functions.c
-	gcc -g -c functions.c -o functions.o
+quadratic_equation.o: quadratic_equation.h quadratic_equation.c
+	gcc -g -c quadratic_equation.c -o quadratic_equation.o
 
 
-functions.a: functions.o
-	ar rc functions.a functions.o
+quadratic_equation.a: quadratic_equation.o
+	ar rc quadratic_equation.a quadratic_equation.o
 
 
-test.o: test.c
-	gcc -g -c test.c -o test.o
+quadratic_test.o: quadratic_test.c
+	gcc -g -c quadratic_test.c -o quadratic_test.o
 
 
-test: test.o functions.a
-	gcc -g -static -o test1 test.o functions.a -lm
+quadratic_test: quadratic_test.o quadratic_equation.a
+	gcc -g -static -o quadratic_test quadratic_test.o quadratic_equation.a -lm
 
 
-try: test
-	./test1
+try: quadratic_test
+	./quadratic_test
