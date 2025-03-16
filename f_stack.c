@@ -1,4 +1,4 @@
-#include "functions.h"
+#include "f_stack.h"
 #include <stdio.h>
 #include <stdlib.h>
 
