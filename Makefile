@@ -1,5 +1,5 @@
 clear:
-	rm -rf *.o *.a test1
+	rm -rf *.o *.a *_test
 
 
 checkfmt:
@@ -8,26 +8,23 @@ checkfmt:
 
 fmt:
 	clang-format -style=LLVM -i `find -regex ".+\.[ch]"`
-<<<<<<< HEAD
-=======
-
->>>>>>> d4e444fe3f67aa8488fdeb3371ef7a30a05bcd13
-
-functions.o: functions.h functions.c
-	gcc -g -c functions.c -o functions.o
 
 
-functions.a: functions.o
-	ar rc functions.a functions.o
+integration.o: integration.h integration.c
+	gcc -g -c integration.c -o integration.o
 
 
-test.o: test.c
-	gcc -g -c test.c -o test.o
+integration.a: integration.o
+	ar rc integration.a integration.o
 
 
-test: test.o functions.a
-	gcc -g -static -o test1 test.o functions.a -lm
+_test.o: main.c
+	gcc -g -c main.c -o _test.o
+
+
+test: _test.o integration.a
+	gcc -g -static -o integration_test _test.o integration.a -lm
 
 
 try: test
-	./test1
+	./integration_test
