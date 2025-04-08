@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 double integration(double a, double b, double (*func)(double), int h) {
   double start = fmin(a, b);
   double end = fmax(a, b);
@@ -17,6 +16,8 @@ double integration(double a, double b, double (*func)(double), int h) {
     summ += func(next);
   }
 
-  if (a > b) {return -(summ * step);}
+  if (a > b) {
+    return -(summ * step);
+  }
   return summ * step;
 }
