@@ -3,4 +3,4 @@
 #include <stdlib.h>
 
 double *finding_roots_quadratic_equation(double a, double b, double c,
-                                         double eps);
+                                         double eps, int *cnt_roots);
