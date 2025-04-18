@@ -1,5 +1,5 @@
 clear:
-	rm -rf *.o *.a test1
+	rm -rf *.o *.a *_test
 
 
 check_fmt:
@@ -10,21 +10,21 @@ fmt:
 	clang-format -style=LLVM -i `find -regex ".+\.[ch]"`
 
 
-functions.o: functions.h functions.c
-	gcc -g -c functions.c -o functions.o
+allocator.o: pool_allocator.h pool_allocator.c
+	gcc -g -c pool_allocator.c -o allocator.o
 
 
-functions.a: functions.o
-	ar rc functions.a functions.o
+allocator.a: allocator.o
+	ar rc allocator.a allocator.o
 
 
-test.o: test.c
-	gcc -g -c test.c -o test.o
+test.o: main.c
+	gcc -g -c main.c -o test.o
 
 
-test: test.o functions.a
-	gcc -g -static -o test1 test.o functions.a -lm
+test: test.o allocator.a
+	gcc -g -static -o alloc_test test.o allocator.a -lm
 
 
 try: test
-	./test1
+	./alloc_test
