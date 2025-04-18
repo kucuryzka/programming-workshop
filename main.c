@@ -14,7 +14,7 @@ void test_alloc_init() {
 
 void test_alloc_init_null() {
   PoolAllocator alloc;
-  alloc_init(&alloc, (size_t)- 1, (size_t)-1);
+  alloc_init(&alloc, (size_t)-1, (size_t)-1);
 
   assert(alloc.memory == NULL);
 }
@@ -25,8 +25,8 @@ void test_allocation() {
   assert(alloc.memory != NULL);
   assert(alloc.free_block != NULL);
 
-  void* pointer = allocate(&alloc);
-  
+  void *pointer = allocate(&alloc);
+
   assert(pointer != NULL);
 }
 
