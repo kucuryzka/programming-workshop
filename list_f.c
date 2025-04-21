@@ -2,16 +2,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Функция для инициализации списка
+
 void init_list(linked_list *list) {
   list->head = NULL;
   list->tail = NULL;
   list->size = 0;
 }
 
-// Функция для добавления элемента в начало списка
+
 void add_to_head(linked_list *list, int value) {
   node *new_node = malloc(sizeof(node));
+  if (!new_node) {
+    return;
+  }
+
   new_node->data = value;
   new_node->next = list->head;
   list->head = new_node;
@@ -21,9 +25,13 @@ void add_to_head(linked_list *list, int value) {
   list->size++;
 }
 
-// Функция для добавления элемента в конец списка
+
 void add_to_tail(linked_list *list, int value) {
   node *new_node = malloc(sizeof(node));
+  if (!new_node) {
+    return;
+  }
+
   new_node->data = value;
   new_node->next = NULL;
   if (list->head == NULL) {
@@ -36,7 +44,7 @@ void add_to_tail(linked_list *list, int value) {
   list->size++;
 }
 
-// Функция для добавления элемента в середину списка по позиции
+
 void add_to_middle(linked_list *list, int position, int value) {
   if (position == 0) {
     add_to_head(list, value);
@@ -44,6 +52,10 @@ void add_to_middle(linked_list *list, int position, int value) {
   }
   if (position == list->size) {
     add_to_tail(list, value);
+    return;
+  }
+
+  if (position > list->size || position < 0) {
     return;
   }
 
@@ -58,8 +70,12 @@ void add_to_middle(linked_list *list, int position, int value) {
   list->size++;
 }
 
-// Функция для удаления элемента по позиции
+
 void remove_element(linked_list *list, int position) {
+  if (position > list->size || position < 0) {
+    return;
+  }
+
   if (position == 0) {
     node *temp = list->head;
     list->head = list->head->next;
@@ -82,8 +98,12 @@ void remove_element(linked_list *list, int position) {
   list->size--;
 }
 
-// Функция для поиска элемента по позиции
+
 int find_element(linked_list *list, int position) {
+  if (position > list->size || position < 0) {
+    return;
+  }
+
   node *current = list->head;
   for (int i = 0; i < position; i++) {
     current = current->next;
@@ -91,5 +111,5 @@ int find_element(linked_list *list, int position) {
   return current->data;
 }
 
-// Функция для подсчёта количества элементов
+
 int count_elements(linked_list *list) { return list->size; }
