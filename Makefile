@@ -1,5 +1,5 @@
 clear:
-	rm -rf *.o *.a test1
+	rm -rf *.o *.a *_test
 
 
 check_fmt:
@@ -10,21 +10,25 @@ fmt:
 	clang-format -style=LLVM -i `find -regex ".+\.[ch]"`
 
 
-functions.o: functions.h functions.c
-	gcc -g -c functions.c -o functions.o
+linear_allocator.o: linear_allocator.h linear_allocator.c
+	gcc -g -c linear_allocator.c -o linear_allocator.o
 
 
-functions.a: functions.o
-	ar rc functions.a functions.o
+dynamic_array.o: dynamic_array.h dynamic_array.c linear_allocator.h
+	gcc -g -c dynamic_array.c -o dynamic_array.o
 
 
-test.o: test.c
-	gcc -g -c test.c -o test.o
+dynamic_array.a: dynamic_array.o linear_allocator.o
+	ar rc dynamic_array.a dynamic_array.o linear_allocator.o
 
 
-test: test.o functions.a
-	gcc -g -static -o test1 test.o functions.a -lm
+array_test.o: array_test.c dynamic_array.h linear_allocator.h
+	gcc -g -c array_test.c -o array_test.o
 
 
-try: test
-	./test1
+array_test: array_test.o dynamic_array.a
+	gcc -g -static -o array_test array_test.o dynamic_array.a -lm
+
+
+try: array_test
+	./array_test
