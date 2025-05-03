@@ -6,5 +6,8 @@ typedef struct {
 
 void init_stack(stack *stakk);
 int is_empty(stack *stakk);
-void push(stack *stakk, int value);
-int pop(stack *stakk);
+void push(stack *stakk, int value, int *flag);
+int pop(stack *stakk, int *flag);
+
+#define SUCCES 1
+#define FAIL 0
