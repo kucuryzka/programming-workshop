@@ -32,3 +32,4 @@ array_test: array_test.o dynamic_array.a
 
 try: array_test
 	./array_test
+	
