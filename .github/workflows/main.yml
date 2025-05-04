@@ -14,8 +14,11 @@ jobs:
       - name: Checkstyle
         run: make check_fmt
  
-      - name: Test
+      - name: Run Array Tests
         run: make array_test
+        
+      - name: Run Quadratic Tests
+        run: make quadratic_test
         
       - name: Run
         run: make try
