@@ -68,5 +68,43 @@ integration_test: _test.o integration.a
 
 #----------------------------------------------------------------------
 
-try: quadratic_test array_test integration_test
+#--------------------------------stack---------------------------------
+
+stack_test: stack_test.o f_stack.a
+	gcc -g -static -o stack_test stack_test.o f_stack.a
+  
+
+stack_test.o: stack_test.c f_stack.h
+	gcc -g -c stack_test.c
+
+
+f_stack.o: f_stack.c f_stack.h
+	gcc -g -c f_stack.c
+
+
+f_stack.a: f_stack.o
+	ar rc f_stack.a f_stack.o
+
+#------------------------------------------------------------------------
+
+#----------------------------linked-list---------------------------------
+
+list_f.o: list_f.h list_f.c
+	gcc -g -c list_f.c -o list_f.o
+
+
+list_f.a: list_f.o
+	ar rc list_f.a list_f.o
+
+
+list_test.o: list_test.c
+	gcc -g -c list_test.c -o list_test.o
+
+
+list_test: list_test.o list_f.a
+	gcc -g -static -o list_test list_test.o list_f.a -lm
+
+#-------------------------------------------------------------------------
+
+try: quadratic_test array_test integration_test stack_test list_test
 	./*_test
