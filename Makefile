@@ -28,3 +28,5 @@ test: test.o allocator.a
 
 try: test
 	./alloc_test
+
+
