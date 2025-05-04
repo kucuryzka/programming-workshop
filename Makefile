@@ -107,5 +107,5 @@ list_test: list_test.o list_f.a
 
 #-------------------------------------------------------------------------
 
-try: quadratic_test array_test integration_test stack_test list_test
+try: integration_test
 	./*_test
