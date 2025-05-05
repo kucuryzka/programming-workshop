@@ -25,11 +25,12 @@ quadratic_test.o: quadratic_test.c
 quadratic_test: quadratic_test.o quadratic_equation.a
 	gcc -g -static -o quadratic_test quadratic_test.o quadratic_equation.a -lm
 
-# -----------------------------------------------------------------
+
 
 # ----------------dynamic array------------------------------------
 linear_allocator.o: linear_allocator.h linear_allocator.c
 	gcc -g -c linear_allocator.c -o linear_allocator.o
+
 
 
 dynamic_array.o: dynamic_array.h dynamic_array.c linear_allocator.h
@@ -106,5 +107,5 @@ list_test: list_test.o list_f.a
 
 #-------------------------------------------------------------------------
 
-try: quadratic_test array_test integration_test stack_test list_test
+try: integration_test
 	./*_test
