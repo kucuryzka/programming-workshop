@@ -16,4 +16,6 @@ jobs:
  
       - name: Test
         run: make list_test
-        
+
+      - name: Run
+        run: make try
