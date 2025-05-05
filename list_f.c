@@ -2,13 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 void init_list(linked_list *list) {
   list->head = NULL;
   list->tail = NULL;
   list->size = 0;
 }
-
 
 void add_to_head(linked_list *list, int value) {
   node *new_node = malloc(sizeof(node));
@@ -24,7 +22,6 @@ void add_to_head(linked_list *list, int value) {
   }
   list->size++;
 }
-
 
 void add_to_tail(linked_list *list, int value) {
   node *new_node = malloc(sizeof(node));
@@ -43,7 +40,6 @@ void add_to_tail(linked_list *list, int value) {
   }
   list->size++;
 }
-
 
 void add_to_middle(linked_list *list, int position, int value) {
   if (position == 0) {
@@ -69,7 +65,6 @@ void add_to_middle(linked_list *list, int position, int value) {
   current->next = new_node;
   list->size++;
 }
-
 
 void remove_element(linked_list *list, int position) {
   if (position > list->size || position < 0) {
@@ -98,7 +93,6 @@ void remove_element(linked_list *list, int position) {
   list->size--;
 }
 
-
 int find_element(linked_list *list, int position) {
   if (position > list->size || position < 0) {
     return;
@@ -110,6 +104,5 @@ int find_element(linked_list *list, int position) {
   }
   return current->data;
 }
-
 
 int count_elements(linked_list *list) { return list->size; }
