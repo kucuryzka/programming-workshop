@@ -11,7 +11,7 @@ double integration(double a, double b, double (*func)(double), int h) {
   double summ = 0.0;
 
   summ += (a + b) * 0.5;
-  for (double i = 1; i < h; i++) {
+  for (int i = 1; i < h; i++) {
     double next = start + i * step;
     summ += func(next);
   }
