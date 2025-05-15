@@ -10,6 +10,7 @@ fmt:
 	clang-format -style=LLVM -i `find -regex ".+\.[ch]"`
     
 
+
 stack_test: stack_test.o f_stack.a
 	gcc -g -static -o stack_test stack_test.o f_stack.a
   
