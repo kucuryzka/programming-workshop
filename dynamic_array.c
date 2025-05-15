@@ -5,11 +5,12 @@
 #define GROWTH_FACTOR 2
 
 void arraylist_init(ArrayList *list, LinearAllocator *allocator,
-                    size_t initial_capacity) {
+                    size_t initial_capacity, size_t element_size) {
   size_t capacity = initial_capacity > 0 ? initial_capacity : DEFAULT_CAPACITY;
   list->data = Allocate(allocator, capacity * sizeof(void *));
   list->capacity = capacity;
   list->size = 0;
+  list->element_size = element_size;
   list->allocator = allocator;
 }
 
@@ -30,7 +31,9 @@ void arraylist_add(ArrayList *list, void *data, size_t index) {
             (list->size - index) * sizeof(void *));
   }
 
-  list->data[index] = data;
+  void *element = Allocate(list->allocator, list->element_size);
+  memcpy(element, data, list->element_size);
+  list->data[index] = element;
   list->size++;
 }
 
@@ -56,5 +59,6 @@ void arraylist_free(ArrayList *list) {
   list->data = NULL;
   list->capacity = 0;
   list->size = 0;
+  list->element_size = 0;
   list->allocator = NULL;
 }

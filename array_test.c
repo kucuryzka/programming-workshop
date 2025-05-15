@@ -6,11 +6,12 @@ static void test_init() {
   AllocInit(&alloc, 1024);
 
   ArrayList list;
-  arraylist_init(&list, &alloc, 0);
+  arraylist_init(&list, &alloc, 0, sizeof(int));
 
   assert(list.size == 0);
   assert(list.capacity > 0);
   assert(list.allocator == &alloc);
+  assert(list.element_size == sizeof(int));
 
   Free(&alloc);
 }
@@ -20,7 +21,7 @@ static void test_add_get() {
   AllocInit(&alloc, 1024);
 
   ArrayList list;
-  arraylist_init(&list, &alloc, 2);
+  arraylist_init(&list, &alloc, 2, sizeof(int));
 
   int a = 10, b = 20, c = 30;
   arraylist_add(&list, &a, 0);
@@ -38,7 +39,7 @@ static void test_delete() {
   AllocInit(&alloc, 1024);
 
   ArrayList list;
-  arraylist_init(&list, &alloc, 3);
+  arraylist_init(&list, &alloc, 3, sizeof(int));
 
   int vals[] = {10, 20, 30};
   for (int i = 0; i < 3; i++)
@@ -57,7 +58,7 @@ static void test_edge_cases() {
   AllocInit(&alloc, 128);
 
   ArrayList list;
-  arraylist_init(&list, &alloc, 1);
+  arraylist_init(&list, &alloc, 1, sizeof(int));
 
   assert(arraylist_get(&list, 0) == NULL);
 
