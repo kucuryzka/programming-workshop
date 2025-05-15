@@ -2,29 +2,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void init_stack(stack *stakk) {
-  stakk->data = malloc(1 * sizeof(int));
-  stakk->top = -1;
-  stakk->capacity = 1;
+void init_stack(stack_t *stack) {
+  stack->data = malloc(1 * sizeof(int));
+  stack->top = -1;
+  stack->capacity = 1;
 }
 
-int is_empty(stack *stakk) { return stakk->top == -1; }
+int is_empty(stack_t *stack) { return stack->top == -1; }
 
-void push(stack *stakk, int value, int *flag) {
-  if (stakk->top == stakk->capacity - 1) {
-    stakk->capacity *= 2;
-    stakk->data = realloc(stakk->data, stakk->capacity * sizeof(int));
+int push(stack_t *stack, int value) {
+  if (stack->top == stack->capacity - 1) {
+    stack->capacity *= 2;
+    stack->data = realloc(stack->data, stack->capacity * sizeof(int));
   }
-  stakk->data[++stakk->top] = value;
-  *flag = SUCCES;
+  stack->data[++stack->top] = value;
+  return SUCCES;
 }
 
-int pop(stack *stakk, int *flag) {
-  if (is_empty(stakk)) {
-    *flag = FAIL;
-    return -1;
+int pop(stack_t *stack, int *elem) {
+  if (is_empty(stack)) {
+    return FAIL;
   }
 
-  *flag = SUCCES;
-  return stakk->data[stakk->top--];
+  *elem = stack->data[stack->top--];
+  return SUCCES;
 }

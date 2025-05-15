@@ -2,34 +2,39 @@
 #include <assert.h>
 
 void test_is_empty() {
-  stack stakk;
-  int flag;
-  init_stack(&stakk);
-  assert(is_empty(&stakk) == 1);
-  push(&stakk, 10, &flag);
-  assert(is_empty(&stakk) == 0);
+  stack_t stack;
+  init_stack(&stack);
+  assert(is_empty(&stack) == 1);
+  assert(push(&stack, 10) == SUCCES);
+  assert(is_empty(&stack) == 0);
 }
 
 void test_push() {
-  stack stakk;
+  stack_t stack;
   int flag;
-  init_stack(&stakk);
-  push(&stakk, 10, &flag);
-  assert(stakk.top == 0);
-  assert(stakk.data[0] == 10);
+  init_stack(&stack);
+  assert(push(&stack, 10) == SUCCES);
+  assert(stack.top == 0);
+  assert(stack.data[0] == 10);
 }
 
 void test_pop() {
-  stack stakk;
+  stack_t stack;
   int flag;
-  init_stack(&stakk);
-  push(&stakk, 10, &flag);
-  int popped = pop(&stakk, &flag);
-  assert(popped == 10);
-  assert(is_empty(&stakk) && flag == SUCCES);
+  int elem;
+  init_stack(&stack);
+  flag = push(&stack, 10);
+  assert(flag == SUCCES);
 
-  int popped2 = pop(&stakk, &flag);
-  assert(flag == 0);
+  flag = pop(&stack, &elem);
+  assert(flag == SUCCES);
+  assert(elem == 10);
+
+  assert(is_empty(&stack));
+
+  
+  flag = pop(&stack, &elem);
+  assert(flag == FAIL);
 }
 
 int main() {
