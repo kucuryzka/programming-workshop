@@ -32,7 +32,6 @@ void test_pop() {
 
   assert(is_empty(&stack));
 
-  
   flag = pop(&stack, &elem);
   assert(flag == FAIL);
 }
