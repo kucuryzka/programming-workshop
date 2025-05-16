@@ -106,5 +106,40 @@ list_test: list_test.o list_f.a
 
 #-------------------------------------------------------------------------
 
-try: quadratic_test array_test integration_test stack_test list_test
-	./*_test
+#-----------------------------pool_allocator------------------------------
+
+allocator.o: pool_allocator.h pool_allocator.c
+	gcc -g -c pool_allocator.c -o allocator.o
+
+
+allocator.a: allocator.o
+	ar rc allocator.a allocator.o
+
+
+test.o: main.c
+	gcc -g -c main.c -o test.o
+
+
+test: test.o allocator.a
+	gcc -g -static -o alloc_test test.o allocator.a -lm
+#-------------------------------------------------------------------------
+
+# -----------------------------garbage_collector--------------------------
+gc.o: garbage_collector.h garbage_collector.c pool_allocator.h
+	gcc -g -c garbage_collector.c -o gc.o
+
+gc.a: gc.o allocator.o
+	ar rc gc.a gc.o allocator.o
+
+gc_test.o: garbage_collector_test.c garbage_collector.h pool_allocator.h
+	gcc -g -c garbage_collector_test.c -o gc_test.o
+
+gc_test: gc_test.o gc.a
+	gcc -g -static -o gc_test gc_test.o gc.a -lm
+#-------------------------------------------------------------------------
+
+try: gc_test
+	./gc_test
+
+check_memory: gc_test
+	valgrind --leak-check=full ./gc_test
