@@ -8,7 +8,8 @@ void alloc_init(PoolAllocator *alloc, size_t block_num, size_t block_size) {
   alloc->block_num = block_num;
   alloc->free_block = NULL;
 
-  alloc->memory = (char *)malloc((sizeof(MemoryBlock) + block_size) * block_num);
+  alloc->memory =
+      (char *)malloc((sizeof(MemoryBlock) + block_size) * block_num);
   alloc->block_arr = (MemoryBlock **)malloc(sizeof(MemoryBlock *) * block_num);
 
   if (!alloc->block_arr) {
@@ -52,9 +53,11 @@ void free_alloc(PoolAllocator *alloc, void *pointer) {
   alloc->free_block = block;
 }
 
-void destroy_alloc(PoolAllocator *alloc){
-  if (alloc->memory) free(alloc->memory);
-  if (alloc->block_arr) free(alloc->block_arr);
+void destroy_alloc(PoolAllocator *alloc) {
+  if (alloc->memory)
+    free(alloc->memory);
+  if (alloc->block_arr)
+    free(alloc->block_arr);
 
   alloc->memory = NULL;
   alloc->block_arr = NULL;

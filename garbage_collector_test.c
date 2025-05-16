@@ -4,17 +4,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 void test_alloc_init() {
-    PoolAllocator alloc;
-    alloc_init(&alloc, 4, 16);
-  
-    assert(alloc.block_num == 4);
-    assert(alloc.block_size == 16);
-    assert(alloc.memory != NULL);
-    assert(alloc.free_block != NULL);
-}
+  PoolAllocator alloc;
+  alloc_init(&alloc, 4, 16);
 
+  assert(alloc.block_num == 4);
+  assert(alloc.block_size == 16);
+  assert(alloc.memory != NULL);
+  assert(alloc.free_block != NULL);
+}
 
 void test_create_object() {
   PoolAllocator alloc;
@@ -67,19 +65,15 @@ void test_cycle() {
   A->count = 0;
   B->count = 0;
 
-
   mark(A);
   sweep(&alloc);
 
-
   assert(alloc.free_block != NULL);
-
-  
 }
 
 int main() {
-    test_alloc_init();
-    test_create_object();
-    test_ref_count();
-    test_cycle();
+  test_alloc_init();
+  test_create_object();
+  test_ref_count();
+  test_cycle();
 }

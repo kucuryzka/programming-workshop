@@ -63,9 +63,10 @@ void mark(gc_counter *obj) {
 
 void sweep(PoolAllocator *alloc) {
   for (int i = 0; i < alloc->block_num; i++) {
-    gc_counter *obj = (gc_counter*)(alloc->block_arr[i]);
+    gc_counter *obj = (gc_counter *)(alloc->block_arr[i]);
 
-    if(!obj) continue;
+    if (!obj)
+      continue;
 
     if (obj->is_marked == 0 && obj->count == 0) {
       if (obj->destructor) {
