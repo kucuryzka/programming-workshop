@@ -1,6 +1,7 @@
 #include "hash_table.h"
 #include <assert.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 void test_init_free() {
@@ -71,11 +72,68 @@ void test_collisions() {
   hash_table_free(&table);
 }
 
+void test_allocator_overflow() {
+  PoolAllocator allocator;
+  alloc_init(&allocator, 2, sizeof(hash_table_entry));
+
+  hash_table table;
+  hash_table_init(&table, 5, &allocator);
+
+  int v1 = 1, v2 = 2, v3 = 3;
+  hash_table_insert(&table, "key1", &v1);
+  hash_table_insert(&table, "key2", &v2);
+  hash_table_insert(&table, "key3", &v3);
+
+  assert(hash_table_get(&table, "key3") == NULL);
+}
+
+void test_large_volume() {
+  const size_t LARGE_SIZE = 1000;
+  PoolAllocator allocator;
+  alloc_init(&allocator, LARGE_SIZE, sizeof(struct hash_table_entry));
+
+  hash_table table;
+  hash_table_init(&table, 128, &allocator);
+
+  for (int i = 0; i < LARGE_SIZE; i++) {
+    char key[20];
+    sprintf(key, "key_%d", i);
+    int *value = malloc(sizeof(int));
+    assert(value != NULL);
+    *value = i;
+    assert(hash_table_insert(&table, key, value) == 0);
+  }
+
+  for (int i = 0; i < LARGE_SIZE; i++) {
+    char key[20];
+    sprintf(key, "key_%d", i);
+    int *val = (int *)hash_table_get(&table, key);
+    assert(val != NULL);
+    assert(*val == i);
+  }
+
+  for (int i = 0; i < LARGE_SIZE; i += 2) {
+    char key[20];
+    sprintf(key, "key_%d", i);
+    hash_table_delete(&table, key);
+  }
+
+  for (int i = 1; i < LARGE_SIZE; i += 2) {
+    char key[20];
+    sprintf(key, "key_%d", i);
+    assert(hash_table_get(&table, key) != NULL);
+  }
+
+  hash_table_free(&table);
+}
+
 int main() {
   test_init_free();
   test_insert_get();
   test_delete();
   test_collisions();
+  test_allocator_overflow();
+  test_large_volume();
 
   printf("All tests passed successfully!\n");
   return 0;
