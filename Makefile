@@ -32,4 +32,3 @@ hash_table_test: hash_table_test.o hash_table.a
 
 try: hash_table_test
 	./*_test
-	
