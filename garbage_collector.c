@@ -16,11 +16,10 @@ gc_counter *createObject(void *data, PoolAllocator *alloc, Constructor ctor,
   obj->destructor = dtor;
   obj->refs = NULL;
   obj->ref_size = 0;
+  obj->data = data;  
 
   if (ctor) {
-    obj->data = ctor(data);
-  } else {
-    obj->data = NULL;
+    ctor(obj->data);  
   }
 
   return obj;
