@@ -1,7 +1,7 @@
 #include "pool_allocator.h"
 
 typedef void (*Destructor)(void *data);
-typedef void *(*Constructor)(void *value);
+typedef void (*Constructor)(void *value);
 typedef struct gc_counter gc_counter;
 
 struct gc_counter {
