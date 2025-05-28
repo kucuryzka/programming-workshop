@@ -31,7 +31,7 @@ void test_insert_get() {
   assert(retrieved != NULL);
   assert(*retrieved == 42);
 
-  free(retrieved); 
+  free(retrieved);
   hash_table_free(&table);
 }
 
@@ -90,8 +90,10 @@ void test_allocator_overflow() {
   int *v1 = malloc(sizeof(int));
   int *v2 = malloc(sizeof(int));
   int *v3 = malloc(sizeof(int));
-  *v1 = 1; *v2 = 2; *v3 = 3;
-  
+  *v1 = 1;
+  *v2 = 2;
+  *v3 = 3;
+
   hash_table_insert(&table, "key1", v1);
   hash_table_insert(&table, "key2", v2);
   hash_table_insert(&table, "key3", v3);
@@ -135,7 +137,7 @@ void test_large_volume() {
     char key[20];
     sprintf(key, "key_%d", i);
     int *val = (int *)hash_table_get(&table, key);
-    free(val); 
+    free(val);
     hash_table_delete(&table, key);
   }
 
