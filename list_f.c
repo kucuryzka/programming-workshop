@@ -95,7 +95,7 @@ void remove_element(linked_list *list, int position) {
 
 int find_element(linked_list *list, int position) {
   if (position > list->size || position < 0) {
-    return;
+    return -1;
   }
 
   node *current = list->head;
