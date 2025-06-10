@@ -10,7 +10,7 @@ typedef struct {
   size_t block_num;
   size_t block_size;
   MemoryBlock *free_block;
-  MemoryBlock **block_arr;
+  size_t used_blocks;
 } PoolAllocator;
 
 void alloc_init(PoolAllocator *alloc, size_t block_num, size_t block_size);
@@ -18,5 +18,3 @@ void alloc_init(PoolAllocator *alloc, size_t block_num, size_t block_size);
 void *allocate(PoolAllocator *alloc);
 
 void free_alloc(PoolAllocator *alloc, void *pointer);
-
-void destroy_alloc(PoolAllocator *alloc);

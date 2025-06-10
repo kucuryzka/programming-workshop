@@ -61,8 +61,9 @@ void mark(gc_counter *obj) {
 }
 
 void sweep(PoolAllocator *alloc) {
-  for (int i = 0; i < alloc->block_num; i++) {
-    gc_counter *obj = (gc_counter *)(alloc->block_arr[i]);
+  char *current_block = alloc->memory;
+  for (size_t i = 0; i < alloc->block_num; i++) {
+    gc_counter *obj = (gc_counter *)(current_block + sizeof(MemoryBlock));
 
     if (!obj)
       continue;
@@ -73,9 +74,9 @@ void sweep(PoolAllocator *alloc) {
       }
 
       free_alloc(alloc, obj);
-      alloc->block_arr[i] = NULL;
     } else {
       obj->is_marked = 0;
     }
+    current_block += sizeof(MemoryBlock) + alloc->block_size;
   }
 }
