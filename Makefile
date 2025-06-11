@@ -164,7 +164,3 @@ gc_test: gc_test.o gc.a
 
 try: p_alloc_test l_alloc_test array_test hash_table_test gc_test integration_test quadratic_test stack_test list_test 
 	./*_test
-
-check_memory: p_alloc_test l_alloc_test array_test hash_table_test gc_test integration_test quadratic_test stack_test list_test 
-	valgrind --leak-check=full ./*_test
-  
